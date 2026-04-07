@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "マネーフォワードクラウド勤怠一括修正",
+  "version": "1.1",
+  "description": "一括修正をより簡単に",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["https://attendance.moneyforward.com/my_page/bulk_attendances*"],
+      "js": ["selectionMethods.js", "paintMethods.js", "ui.js", "content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

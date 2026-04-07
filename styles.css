@@ -1,0 +1,12 @@
+.selection-box {
+    position: absolute;
+    border: 2px dashed #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.selectable-highlight {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
