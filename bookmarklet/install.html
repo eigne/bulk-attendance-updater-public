@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>勤怠一括選択 ブックマークレット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  html, body {
+    background: #2b2b2b;
+    color: #cccccc;
+    font-family: "DotGothic16", "ＭＳ Ｐゴシック", "MS PGothic", "Osaka", sans-serif;
+    font-size: 20px;
+    line-height: 1.55;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    image-rendering: pixelated;
+  }
+  body { margin: 24px 32px; }
+  .wrap { width: auto; margin: 0; padding: 0; background: #2b2b2b; }
+  h1 { font-size: 32px; margin: 0 0 16px 0; color: #eeeeee; }
+  h2 { font-size: 24px; margin: 24px 0 8px 0; color: #dddddd; }
+  p { margin: 10px 0; }
+  a { color: #ffff99; }
+  a:visited { color: #cc99ff; }
+  a:hover { color: #ffffff; background: #444; }
+  hr { border: none; border-top: 1px dashed #555; margin: 14px 0; }
+  ol { padding-left: 28px; }
+  ol li { margin-bottom: 6px; }
+  code { color: #99ccff; font-family: "DotGothic16", "Osaka-Mono", "ＭＳ ゴシック", "MS Gothic", monospace; }
+  .install {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #1a1a1a;
+    color: #ffff99;
+    border: 2px outset #888;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: "DotGothic16", "ＭＳ Ｐゴシック", "MS PGothic", "Osaka", sans-serif;
+  }
+  .install:hover { background: #000; color: #ffffff; border-style: inset; }
+  .note { color: #999; font-size: 16px; }
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    margin: 10px 0;
+    border: 1px solid #555;
+    image-rendering: auto;
+  }
+  /* Force the middle screenshots to a uniform width;
+     the first and last (small UI close-ups) keep their own scale. */
+  ol > img:not(:first-of-type):not(:last-of-type) {
+    width: 1200;
+    max-height: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<p>
+  <!-- The href is the bookmarklet itself. Drag this link to the bookmarks bar. -->
+  <a class="install" href="javascript:(function%20()%20%7B%20const%20STYLE_ID%20%3D%20%22baul-style%22%3B%20const%20PANEL_ID%20%3D%20%22baul-panel%22%3B%20const%20HL_CLASS%20%3D%20%22baul-hl%22%3B%20if%20(!document.getElementById(STYLE_ID))%20%7B%20const%20s%20%3D%20document.createElement(%22style%22)%3B%20s.id%20%3D%20STYLE_ID%3B%20s.textContent%20%3D%20%22.%22%20%2B%20HL_CLASS%20%2B%20%22%7Boutline%3A2px%20solid%20%23007bff%3Boutline-offset%3A-2px%7D%22%3B%20document.head.appendChild(s)%3B%20%7D%20const%20getRows%20%3D%20()%20%3D%3E%20document.querySelectorAll(%22.attendance-table-contents%20tr.v3%22)%3B%20const%20getStatus%20%3D%20(row)%20%3D%3E%20row.querySelector(%22.column-pattern%20.attendance-select-field%22)%3B%20const%20getDay%20%3D%20(row)%20%3D%3E%20row.querySelector(%22.column-day%22)%3B%20const%20getDayType%20%3D%20(row)%20%3D%3E%20row.querySelector(%22.column-classification%22)%3B%20const%20isHoliday%20%3D%20(row)%20%3D%3E%20%7B%20const%20t%20%3D%20getDayType(row)%3B%20return%20!!t%20%26%26%20t.textContent.includes(%22%E4%BC%91%E6%97%A5%22)%3B%20%7D%3B%20const%20selected%20%3D%20new%20Set()%3B%20const%20highlight%20%3D%20(el)%20%3D%3E%20%7B%20selected.add(el)%3B%20el.classList.add(HL_CLASS)%3B%20%7D%3B%20const%20unhighlight%20%3D%20(el)%20%3D%3E%20%7B%20selected.delete(el)%3B%20el.classList.remove(HL_CLASS)%3B%20%7D%3B%20const%20toggleByDay%20%3D%20(day%2C%20skipHolidays)%20%3D%3E%20%7B%20getRows().forEach((row)%20%3D%3E%20%7B%20if%20(skipHolidays%20%26%26%20isHoliday(row))%20return%3B%20const%20dayEl%20%3D%20getDay(row)%3B%20if%20(!dayEl%20%7C%7C%20!dayEl.textContent.includes(day))%20return%3B%20const%20status%20%3D%20getStatus(row)%3B%20if%20(!status)%20return%3B%20selected.has(status)%20%3F%20unhighlight(status)%20%3A%20highlight(status)%3B%20%7D)%3B%20%7D%3B%20const%20invert%20%3D%20(skipHolidays)%20%3D%3E%20%7B%20getRows().forEach((row)%20%3D%3E%20%7B%20if%20(skipHolidays%20%26%26%20isHoliday(row))%20return%3B%20const%20status%20%3D%20getStatus(row)%3B%20if%20(!status)%20return%3B%20selected.has(status)%20%3F%20unhighlight(status)%20%3A%20highlight(status)%3B%20%7D)%3B%20%7D%3B%20const%20clearSelection%20%3D%20()%20%3D%3E%20%7B%20Array.from(selected).forEach(unhighlight)%3B%20%7D%3B%20const%20applyValue%20%3D%20(value)%20%3D%3E%20%7B%20if%20(selected.size%20%3D%3D%3D%200)%20%7B%20alert(%22%E4%BD%95%E3%82%82%E9%81%B8%E6%8A%9E%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%81%BE%E3%81%9B%E3%82%93%22)%3B%20return%3B%20%7D%20selected.forEach((dropdown)%20%3D%3E%20%7B%20const%20opts%20%3D%20dropdown.options%3B%20for%20(let%20i%20%3D%200%3B%20i%20%3C%20opts.length%3B%20i%2B%2B)%20%7B%20if%20(opts%5Bi%5D.value%20%3D%3D%3D%20value)%20%7B%20dropdown.selectedIndex%20%3D%20i%3B%20dropdown.dispatchEvent(new%20Event(%22change%22%2C%20%7B%20bubbles%3A%20true%20%7D))%3B%20break%3B%20%7D%20%7D%20%7D)%3B%20%7D%3B%20const%20buildPatternSelect%20%3D%20()%20%3D%3E%20%7B%20const%20source%20%3D%20document.querySelector(%22.attendance-select-field%22)%3B%20if%20(!source)%20return%20null%3B%20const%20sel%20%3D%20document.createElement(%22select%22)%3B%20sel.style.marginRight%20%3D%20%224px%22%3B%20const%20placeholder%20%3D%20document.createElement(%22option%22)%3B%20placeholder.value%20%3D%20%22%22%3B%20placeholder.textContent%20%3D%20%22--%20%E9%81%B8%E6%8A%9E%20--%22%3B%20sel.appendChild(placeholder)%3B%20const%20reset%20%3D%20document.createElement(%22option%22)%3B%20reset.value%20%3D%20%22%22%3B%20reset.textContent%20%3D%20%22%E3%80%90%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88%E3%80%91%22%3B%20sel.appendChild(reset)%3B%20Array.from(source.options).forEach((opt)%20%3D%3E%20%7B%20if%20(!opt.value)%20return%3B%20const%20o%20%3D%20document.createElement(%22option%22)%3B%20o.value%20%3D%20opt.value%3B%20o.textContent%20%3D%20opt.textContent%3B%20sel.appendChild(o)%3B%20%7D)%3B%20return%20sel%3B%20%7D%3B%20const%20existing%20%3D%20document.getElementById(PANEL_ID)%3B%20if%20(existing)%20existing.remove()%3B%20const%20panel%20%3D%20document.createElement(%22div%22)%3B%20panel.id%20%3D%20PANEL_ID%3B%20panel.style.cssText%20%3D%20%22position%3Afixed%3Btop%3A10px%3Bright%3A10px%3Bz-index%3A99999%3Bbackground%3A%23fff%3B%22%20%2B%20%22border%3A1px%20solid%20%23ccc%3Bpadding%3A8px%3Bborder-radius%3A6px%3B%22%20%2B%20%22box-shadow%3A0%202px%208px%20rgba(0%2C0%2C0%2C.15)%3Bfont%3A12px%20sans-serif%22%3B%20const%20skipLabel%20%3D%20document.createElement(%22label%22)%3B%20skipLabel.style.cssText%20%3D%20%22display%3Ablock%3Bmargin-bottom%3A6px%22%3B%20const%20skipCb%20%3D%20document.createElement(%22input%22)%3B%20skipCb.type%20%3D%20%22checkbox%22%3B%20skipCb.checked%20%3D%20true%3B%20skipLabel.appendChild(skipCb)%3B%20skipLabel.appendChild(document.createTextNode(%22%20%E4%BC%91%E6%97%A5%E3%82%B9%E3%82%AD%E3%83%83%E3%83%97%22))%3B%20panel.appendChild(skipLabel)%3B%20const%20days%20%3D%20%5B%22%E6%97%A5%22%2C%20%22%E6%9C%88%22%2C%20%22%E7%81%AB%22%2C%20%22%E6%B0%B4%22%2C%20%22%E6%9C%A8%22%2C%20%22%E9%87%91%22%2C%20%22%E5%9C%9F%22%5D%3B%20const%20dayRow%20%3D%20document.createElement(%22div%22)%3B%20dayRow.style.cssText%20%3D%20%22margin-bottom%3A6px%22%3B%20days.forEach((d)%20%3D%3E%20%7B%20const%20b%20%3D%20document.createElement(%22button%22)%3B%20b.type%20%3D%20%22button%22%3B%20b.textContent%20%3D%20d%3B%20b.style.marginRight%20%3D%20%222px%22%3B%20b.onclick%20%3D%20()%20%3D%3E%20toggleByDay(d%2C%20skipCb.checked)%3B%20dayRow.appendChild(b)%3B%20%7D)%3B%20panel.appendChild(dayRow)%3B%20const%20mkBtn%20%3D%20(text%2C%20handler%2C%20marginLeft)%20%3D%3E%20%7B%20const%20b%20%3D%20document.createElement(%22button%22)%3B%20b.type%20%3D%20%22button%22%3B%20b.textContent%20%3D%20text%3B%20if%20(marginLeft)%20b.style.marginLeft%20%3D%20marginLeft%3B%20b.onclick%20%3D%20handler%3B%20return%20b%3B%20%7D%3B%20const%20actionRow%20%3D%20document.createElement(%22div%22)%3B%20actionRow.style.cssText%20%3D%20%22margin-bottom%3A6px%22%3B%20actionRow.appendChild(mkBtn(%22%E5%8F%8D%E8%BB%A2%22%2C%20()%20%3D%3E%20invert(skipCb.checked)))%3B%20actionRow.appendChild(mkBtn(%22%E3%82%AF%E3%83%AA%E3%82%A2%22%2C%20clearSelection%2C%20%224px%22))%3B%20actionRow.appendChild(%20mkBtn(%22%C3%97%22%2C%20()%20%3D%3E%20%7B%20clearSelection()%3B%20panel.remove()%3B%20%7D%2C%20%224px%22)%20)%3B%20panel.appendChild(actionRow)%3B%20const%20applyRow%20%3D%20document.createElement(%22div%22)%3B%20const%20patternSelect%20%3D%20buildPatternSelect()%3B%20if%20(patternSelect)%20%7B%20applyRow.appendChild(patternSelect)%3B%20applyRow.appendChild(%20mkBtn(%22%E5%A4%89%E6%9B%B4%22%2C%20()%20%3D%3E%20%7B%20if%20(!patternSelect.value%20%26%26%20patternSelect.selectedIndex%20%3D%3D%3D%200)%20%7B%20alert(%22%E5%80%A4%E3%82%92%E9%81%B8%E6%8A%9E%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%22)%3B%20return%3B%20%7D%20applyValue(patternSelect.value)%3B%20%7D)%20)%3B%20%7D%20else%20%7B%20applyRow.textContent%20%3D%20%22(%E5%8B%A4%E5%8B%99%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E5%8F%96%E5%BE%97%E5%A4%B1%E6%95%97%E3%80%82%E6%97%A5%E6%AC%A1%E5%8B%A4%E6%80%A0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A7%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%90%E3%83%BC%E3%81%8B%E3%82%89%E9%96%8B%E3%81%91%E3%81%A6)%22%3B%20applyRow.style.cssText%20%3D%20%22font%3A13px%20'Hiragino%20Sans'%2C'Yu%20Gothic'%2C'Meiryo'%2Csans-serif%3Bcolor%3A%23000%3B%22%20%2B%20%22-webkit-font-smoothing%3Aantialiased%22%3B%20%7D%20panel.appendChild(applyRow)%3B%20document.body.appendChild(panel)%3B%20%7D)()%3B">Bulk Attendance Select</a> <-- ブックマークバーにドラッグ＆ドロップ
+</p>
+
+
+<h2>使い方</h2>
+<ol>
+  <li>一括編集を開く</li>
+  <img src="installguide/bulkbutton.png">
+  <li>一括編集画面でブックマークをクリックする</li>
+  <img src="installguide/attendancepage.png">
+  <li>出社日を選択する（例：水木出社）</li>
+  <p>※休日を選択しない。選択したい場合、休日スキップをオフにして</p>
+  <img src="installguide/suimoku.png">
+  <li>勤務パターンを選択し、変更ボタンを押すと反映される</li>
+  <img src="installguide/wfoset.png">
+  <li>反対ボタンを押し、残りの勤務パターンをセットする（例：在宅)</li>
+  <p>※反対しても休日を選択しない。選択したい場合、休日スキップをオフにして</p>
+  <img src="installguide/hantai.png">
+  <li>保存ボタンを押すとおしまい</li>
+  <img src="installguide/hozon.png">
+  <p>※休日に勤務パターンを入れても特に問題ないけど見づらくなる。</p>
+</ol>
+
+</body>
+</html>
