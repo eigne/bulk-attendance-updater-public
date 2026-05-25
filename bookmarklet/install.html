@@ -3,67 +3,47 @@
 <head>
 <meta charset="utf-8">
 <title>勤怠一括選択 ブックマークレット</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 <style>
-  html, body {
+  body {
     background: #2b2b2b;
     color: #cccccc;
-    font-family: "DotGothic16", "ＭＳ Ｐゴシック", "MS PGothic", "Osaka", sans-serif;
-    font-size: 20px;
-    line-height: 1.55;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: grayscale;
-    font-smooth: never;
-    text-rendering: optimizeSpeed;
-    image-rendering: pixelated;
+    font: 18px/1.55 system-ui, -apple-system, "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    margin: 24px 32px;
   }
-  body { margin: 24px 32px; }
-  .wrap { width: auto; margin: 0; padding: 0; background: #2b2b2b; }
-  h1 { font-size: 32px; margin: 0 0 16px 0; color: #eeeeee; }
-  h2 { font-size: 24px; margin: 24px 0 8px 0; color: #dddddd; }
-  p { margin: 10px 0; }
+  h1 { font-size: 28px; color: #eee; margin: 0 0 16px; }
+  h2 { font-size: 22px; color: #ddd; margin: 24px 0 8px; }
+  p { margin: 8px 0; }
   a { color: #ffff99; }
   a:visited { color: #cc99ff; }
-  a:hover { color: #ffffff; background: #444; }
-  hr { border: none; border-top: 1px dashed #555; margin: 14px 0; }
+  a:hover { color: #fff; background: #444; }
   ol { padding-left: 28px; }
   ol li { margin-bottom: 6px; }
-  code { color: #99ccff; font-family: "DotGothic16", "Osaka-Mono", "ＭＳ ゴシック", "MS Gothic", monospace; }
+  code { color: #99ccff; font-family: ui-monospace, Menlo, Consolas, monospace; }
   .install {
     display: inline-block;
     padding: 8px 18px;
     background: #1a1a1a;
     color: #ffff99;
-    border: 2px outset #888;
+    border: 1px solid #888;
     text-decoration: none;
-    font-size: 20px;
-    font-family: "DotGothic16", "ＭＳ Ｐゴシック", "MS PGothic", "Osaka", sans-serif;
   }
-  .install:hover { background: #000; color: #ffffff; border-style: inset; }
-  .note { color: #999; font-size: 16px; }
+  .install:hover { background: #000; color: #fff; }
+  .note { color: #999; font-size: 14px; }
   img {
     display: block;
     max-width: 100%;
     max-height: 400px;
-    width: auto;
-    height: auto;
     margin: 10px 0;
     border: 1px solid #555;
-    image-rendering: auto;
   }
-  /* Force the middle screenshots to a uniform width;
-     the first and last (small UI close-ups) keep their own scale. */
+  /* Middle screenshots share a uniform width; first/last keep their own scale. */
   ol > img:not(:first-of-type):not(:last-of-type) {
-    width: 1200;
+    width: 1200px;
     max-height: none;
   }
 </style>
 </head>
 <body>
-
-<div class="wrap">
 
 <p>
   <!-- The href is the bookmarklet itself. Drag this link to the bookmarks bar. -->
