@@ -9,6 +9,8 @@
 
 https://www.youtube.com/watch?v=c082pGHjdF0
 
+bookmarklet: https://eigne.github.io/bulk-attendance-updater-public/bookmarklet/install.html
+
 Changelog:
 
 v1.0.0: Initial release
